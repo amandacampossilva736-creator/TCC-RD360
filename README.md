@@ -1,2 +1,2 @@
 # TCC-RD360
-REDE DE DISTRIBUIÇÃO 360
+Sistema para gerenciamento de obras de distribuição de energia elétrica.
