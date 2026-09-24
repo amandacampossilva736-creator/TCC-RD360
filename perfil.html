@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perfil | RD360°</title>
+<link rel="stylesheet" href="css/sistema.css">
+</head>
+<body>
+<aside class="menu">
+    <button class="botao-menu" onclick="abrirMenu()">☰</button>
+    <div class="logo">RD360°</div>
+    <ul>
+        <li><a href="obras.html">Obras</a></li>
+        <li><a href="asbuilt.html">As Built</a></li>
+        <li><a href="pontos.html">Pontos Coletados</a></li>
+        <li><a href="perfil.html">Perfil</a></li>
+        <li><a href="php/logout.php">Sair</a></li>
+    </ul>
+</aside>
+
+<main class="conteudo">
+
+<div class="topo">
+    <h1>Meu Perfil</h1>
+</div>
+
+<form action="php/atualizar_perfil.php" method="POST">
+   <section class="formulario perfil">
+        <h2>Dados do Usuário</h2>
+
+        <div class="grupo">
+            <label for="nome-usuario">Nome Completo</label>
+            <input type="text" id="nome-usuario" name="nome" required>
+        </div>
+
+        <div class="grupo">
+            <label for="email-usuario">E-mail</label>
+            <input type="email" id="email-usuario" name="email" required>
+        </div>
+
+        <div class="grupo">
+            <label for="senha-perfil">Nova Senha</label>
+            <input type="password" id="senha-perfil" name="senha"
+                   placeholder="Digite uma nova senha">
+        </div>
+
+        <div class="grupo">
+            <label for="confirmar-perfil">Confirmar Nova Senha</label>
+            <input type="password" id="confirmar-perfil" name="confirmar_senha"
+                   placeholder="Confirme a nova senha">
+        </div>
+
+        <div class="acoes">
+            <button type="submit" class="botao">Salvar Alterações</button>
+            <button type="reset" class="botao-secundario">Limpar</button>
+        </div>
+    </section>
+</form>
+
+</main>
+<script src="js/script.js"></script>
+
+<script>
+carregarPerfil();
+verificarLogin();
+</script>
+
+</body>
+</html>
+</body>
+</html>

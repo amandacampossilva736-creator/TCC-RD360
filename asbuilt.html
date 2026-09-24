@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>As Built | RD360°</title>
+<link rel="stylesheet" href="css/sistema.css">
+</head>
+<body>
+<aside class="menu">
+    <button class="botao-menu" onclick="abrirMenu()">☰</button>
+    <div class="logo">RD360°</div>
+    <ul>
+        <li><a href="obras.html">Obras</a></li>
+        <li><a href="asbuilt.html">As Built</a></li>
+        <li><a href="pontos.html">Pontos Coletados</a></li>
+        <li><a href="perfil.html">Perfil</a></li>
+        <li><a href="php/logout.php">Sair</a></li>
+    </ul>
+</aside>
+
+<main class="conteudo">
+
+<div class="topo">
+    <h1>As Built</h1>
+    <div class="acoes-topo">
+        <button class="botao" onclick="mostrarFormulario('formularioAsBuilt')">Novo As Built</button>
+        <button class="botao-secundario" onclick="exportarExcel('asbuilt')">Exportar Excel</button>
+    </div>
+</div>
+
+<table>
+<thead>
+<tr>
+    <th>ID As Built</th>
+    <th>Responsável</th>
+    <th>Obra</th>
+    <th>Status</th>
+    <th>Data Fiscalização</th>
+    <th>Ações</th>
+</tr>
+</thead>
+<tbody id="tabela-asbuilt"></tbody>
+</table>
+
+
+<form id="form-asbuilt" action="php/salvar_asbuilt.php" method="POST">
+    <input type="hidden" id="n_as_built" name="n_as_built">
+
+    <section class="formulario" id="formularioAsBuilt" style="display:none;">
+        <h2 id="titulo-form-asbuilt">Novo As Built</h2>
+<div class="grupo">
+            <label for="responsavel">Responsável</label>
+            <input type="text" id="responsavel" name="responsavel" required>
+        </div>
+
+        <div class="grupo">
+            <label for="obra-asbuilt">Obra</label>
+            <select name="fk_obra_id_obra" id="obra-asbuilt" required>
+                <option value="">Selecione...</option>
+            </select>
+        </div>
+
+        <div class="grupo">
+            <label for="status-asbuilt">Status</label>
+            <select name="fk_status_id_status" id="status-asbuilt" required>
+                <option value="">Selecione...</option>
+            </select>
+        </div>
+
+        <div class="grupo">
+            <label for="data_fiscalizacao">Data da Fiscalização</label>
+            <input type="date" id="data_fiscalizacao" name="data_fiscalizacao" required>
+        </div>
+
+        <div class="grupo">
+            <label for="observacoes">Observações</label>
+            <textarea id="observacoes" name="observacoes"></textarea>
+        </div>
+<div class="acoes">
+            <button type="submit" class="botao">Salvar</button>
+            <button type="button" class="botao-secundario"
+                    onclick="fecharFormularioAsBuilt()">Cancelar</button>
+        </div>
+    </section>
+</form>
+
+</main>
+
+<script src="js/script.js"></script>
+<script>
+carregarAsbuilt(); carregarObras(); carregarStatus(); verificarLogin();
+</script>
+</body>
+</html>

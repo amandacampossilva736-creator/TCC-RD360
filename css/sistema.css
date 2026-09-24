@@ -1,0 +1,577 @@
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+
+}
+
+
+body{
+
+    background:#f4f6f9;
+    color:#333;
+
+}
+
+
+
+.menu{
+
+    position:fixed;
+    top:0;
+    left:0;
+
+    width:230px;
+    height:100vh;
+
+    background:#082c63;
+
+    transition:0.3s;
+
+}
+
+
+
+.menu.fechado{
+
+    width:70px;
+
+}
+
+
+
+.botao-menu{
+
+    width:auto;
+
+    background:none;
+
+    border:none;
+
+    color:white;
+
+    font-size:28px;
+
+    cursor:pointer;
+
+    padding:15px;
+
+}
+
+
+
+.logo{
+
+    color:white;
+
+    font-size:25px;
+
+    font-weight:bold;
+
+    padding:15px 20px;
+
+}
+
+
+
+.menu ul{
+
+    list-style:none;
+
+    margin-top:20px;
+
+}
+
+
+
+.menu li{
+
+    padding:5px 15px;
+
+}
+
+
+
+.menu a{
+
+    display:block;
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:12px;
+
+    border-radius:8px;
+
+}
+
+
+
+.menu a:hover{
+
+    background:#0b5ed7;
+
+}
+
+
+
+.menu.fechado .logo{
+
+    display:none;
+
+}
+
+
+
+
+.menu.fechado a{
+
+    font-size:0;
+
+}
+
+
+
+
+
+
+.conteudo{
+
+
+    margin-left:230px;
+
+    padding:35px;
+
+    transition:0.3s;
+
+
+}
+
+
+
+.conteudo.expandido{
+
+    margin-left:70px;
+
+}
+
+
+
+
+
+
+.topo{
+
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:30px;
+
+
+}
+
+
+
+.topo h1{
+
+    color:#082c63;
+
+    font-size:30px;
+
+}
+
+
+
+.acoes-topo{
+
+
+    display:flex;
+
+    gap:15px;
+
+
+}
+
+
+
+
+
+
+
+
+.botao{
+
+
+    background:#0b5ed7;
+
+    color:white;
+
+    border:none;
+
+    padding:12px 22px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    text-decoration:none;
+
+}
+
+
+
+.botao:hover{
+
+    background:#084298;
+
+}
+
+
+
+
+
+
+.botao-secundario{
+
+
+    background:white;
+
+    color:#0b5ed7;
+
+    border:2px solid #0b5ed7;
+
+    padding:10px 22px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+
+}
+
+
+
+.botao-secundario:hover{
+
+    background:#0b5ed7;
+
+    color:white;
+
+}
+.btn-editar{
+
+background:#0b5ed7;
+color:white;
+border:none;
+padding:8px 15px;
+border-radius:8px;
+cursor:pointer;
+
+}
+
+
+.btn-excluir{
+
+background:#dc3545;
+color:white;
+border:none;
+padding:8px 15px;
+border-radius:8px;
+cursor:pointer;
+
+}
+
+
+
+
+
+
+table{
+
+
+    width:100%;
+
+    background:white;
+
+    border-collapse:collapse;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+    margin-top:25px;
+
+
+}
+
+
+
+thead{
+
+
+    background:#082c63;
+
+    color:white;
+
+
+}
+
+
+
+th{
+
+
+    padding:15px;
+
+    text-align:left;
+
+
+}
+
+
+
+td{
+
+
+    padding:15px;
+
+    border-bottom:1px solid #ddd;
+
+
+}
+
+
+
+tbody tr:hover{
+
+
+    background:#f2f5fa;
+
+
+}
+
+
+
+
+
+
+
+
+.botao-tabela{
+
+
+    border:none;
+
+    padding:7px 12px;
+
+    border-radius:6px;
+
+    color:white;
+
+    cursor:pointer;
+
+    margin-right:5px;
+
+
+}
+
+
+
+.editar{
+
+    background:#6c757d;
+
+}
+
+
+
+.excluir{
+
+    background:#dc3545;
+
+}
+
+
+
+.abrir{
+
+    background:#0b5ed7;
+
+}
+
+
+
+
+
+
+
+
+
+.formulario{
+
+
+    display:none;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:10px;
+
+    margin-top:30px;
+
+
+}
+
+
+
+.formulario h2{
+
+
+    color:#082c63;
+
+    margin-bottom:25px;
+
+
+}
+
+
+
+
+
+
+.grupo{
+
+
+    margin-bottom:20px;
+
+
+}
+
+
+
+.grupo label{
+
+
+    display:block;
+
+    font-weight:bold;
+
+    margin-bottom:8px;
+
+
+}
+
+
+
+
+input,
+select,
+textarea{
+
+
+    width:100%;
+
+    padding:12px;
+
+    border:1px solid #ccc;
+
+    border-radius:8px;
+
+    font-size:15px;
+
+
+}
+
+
+
+textarea{
+
+    height:120px;
+
+    resize:none;
+
+}
+
+
+
+
+
+
+
+
+.bloco{
+
+
+    background:white;
+
+    border:1px solid #ddd;
+
+    border-radius:10px;
+
+    padding:25px;
+
+    margin-top:25px;
+
+
+}
+
+
+
+.bloco h3{
+
+
+    color:#082c63;
+
+    margin-bottom:20px;
+
+
+}
+
+
+
+
+
+
+.acoes{
+
+
+    display:flex;
+
+    gap:15px;
+
+    margin-top:30px;
+
+
+}
+
+
+
+.acoes button{
+
+
+    width:auto;
+
+
+}
+
+
+
+
+
+
+
+.perfil{
+    max-width:700px;
+}
+
+.formulario.perfil{
+    display:block;
+}

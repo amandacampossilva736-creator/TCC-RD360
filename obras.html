@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Obras | RD360°</title>
+<link rel="stylesheet" href="css/sistema.css">
+</head>
+<body>
+<aside class="menu">
+    <button class="botao-menu" onclick="abrirMenu()">☰</button>
+    <div class="logo">RD360°</div>
+    <ul>
+        <li><a href="obras.html">Obras</a></li>
+        <li><a href="asbuilt.html">As Built</a></li>
+        <li><a href="pontos.html">Pontos Coletados</a></li>
+        <li><a href="perfil.html">Perfil</a></li>
+        <li><a href="php/logout.php">Sair</a></li>
+    </ul>
+</aside>
+
+<main class="conteudo">
+
+<div class="topo">
+    <h1>Cadastro de Obras</h1>
+    <div class="acoes-topo">
+        <button class="botao" onclick="mostrarFormulario('formularioObra')">Nova Obra</button>
+        <button class="botao-secundario" onclick="exportarExcel('obras')">Exportar Excel</button>
+    </div>
+</div>
+
+<table>
+<thead>
+<tr>
+    <th>Projeto</th>
+    <th>Nota</th>
+    <th>Título</th>
+    <th>Município</th>
+    <th>ID Investimento</th>
+    <th>Data Energização</th>
+    <th>Ações</th>
+</tr>
+</thead>
+<tbody id="tabela-obras"></tbody>
+</table>
+
+
+<form id="form-obra" action="php/salvar_obra.php" method="POST">
+    <input type="hidden" id="id_obra" name="id_obra">
+
+    <section class="formulario" id="formularioObra" style="display:none;">
+        <h2 id="titulo-form-obra">Nova Obra</h2>
+
+        <div class="grupo">
+            <label for="projeto_obra">Projeto da Obra</label>
+            <input type="text" id="projeto_obra" name="projeto_obra" required>
+        </div>
+
+        <div class="grupo">
+            <label for="nota_obra">Nota</label>
+            <input type="text" id="nota_obra" name="nota" required>
+        </div>
+
+        <div class="grupo">
+            <label for="titulo_obra">Título</label>
+            <input type="text" id="titulo_obra" name="titulo" required>
+        </div>
+
+        <div class="grupo">
+            <label for="municipio">Município</label>
+            <input list="municipios" id="municipio" name="municipio"
+                   placeholder="Digite ou selecione o município" required>
+            <datalist id="municipios"></datalist>
+        </div>
+
+        <div class="grupo">
+            <label for="id_investimento">ID Investimento</label>
+            <input type="text" id="id_investimento" name="id_investimento" required>
+        </div>
+
+        <div class="grupo">
+            <label for="qtd_postes">Quantidade de Postes</label>
+            <input type="number" id="qtd_postes" name="qtd_postes" min="0" required>
+        </div>
+
+        <div class="grupo">
+            <label for="uc_previsto">UC Previsto</label>
+            <input type="number" id="uc_previsto" name="uc_previsto" min="0" required>
+        </div>
+
+        <div class="grupo">
+            <label for="data_energizacao">Data Energização</label>
+            <input type="date" id="data_energizacao" name="data_energizacao" required>
+        </div>
+
+        <div class="acoes">
+            <button id="botaoSalvarObra" type="submit" class="botao">Salvar</button>
+            <button type="button" class="botao-secundario"
+                    onclick="fecharFormularioObra()">Cancelar</button>
+        </div>
+    </section>
+</form>
+
+</main>
+
+<script src="js/script.js"></script>
+<script>
+carregarObras(); carregarMunicipios(); verificarLogin();
+</script>
+</body>
+</html>

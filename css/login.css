@@ -1,0 +1,117 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#071A35;
+}
+
+.container{
+    width:100%;
+    height:100vh;
+    display:flex;
+}
+
+.lado-esquerdo{
+    width:50%;
+    background:
+    linear-gradient(rgba(7,26,53,.82),rgba(7,26,53,.82)),
+    url("../img/img.subestacao.jpeg");
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.informacoes{
+    width:70%;
+    color:white;
+}
+.informacoes h1{
+    color:#4EA5FF;
+    font-size:50px;
+    margin-bottom:20px;
+}
+.informacoes h2{
+    font-size:38px;
+    margin-bottom:20px;
+}
+.informacoes p{
+    line-height:30px;
+    font-size:20px;
+}
+
+.lado-direito{
+    width:50%;
+    background:#FFFFFF;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px;
+}
+
+form{
+    width:70%;
+    max-width:420px;
+}
+form h2{
+    color:#071A35;
+    margin-bottom:35px;
+    font-size:36px;
+}
+form p{
+    text-align:center;
+    margin-top:25px;
+}
+form a{
+    color:#0B66D6;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+label{
+    display:block;
+    margin-top:20px;
+    margin-bottom:8px;
+    color:#333;
+}
+
+input{
+    width:100%;
+    padding:15px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
+}
+input:focus{
+    outline:none;
+    border-color:#0B66D6;
+}
+
+select{
+    width:100%;
+    padding:15px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
+    margin-bottom:10px;
+}
+
+button{
+    width:100%;
+    margin-top:35px;
+    padding:15px;
+    border:none;
+    background:#0B66D6;
+    color:white;
+    font-size:18px;
+    border-radius:8px;
+    cursor:pointer;
+}
+button:hover{
+    background:#2E8BFF;
+}
