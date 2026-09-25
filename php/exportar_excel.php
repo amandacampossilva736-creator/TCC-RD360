@@ -87,7 +87,6 @@ $map = [
         'sql' => '
             SELECT
                 pc.id_ponto,
-                pc.nota,
                 pc.nota_obra,
                 o.titulo,
                 pc.latitude,
@@ -151,7 +150,7 @@ $map = [
             INNER JOIN (
                 SELECT
                     pc.id_ponto,
-                    pc.nota,
+                    pc.nota_obra AS nota,
                     o.titulo AS obra
 
                 FROM pontos_coletados pc
@@ -170,7 +169,7 @@ $map = [
             INNER JOIN (
                 SELECT
                     pc.id_ponto,
-                    pc.nota,
+                    pc.nota_obra AS nota,
                     o.titulo AS obra
 
                 FROM pontos_coletados pc

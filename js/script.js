@@ -52,9 +52,6 @@ function fecharFormularioPonto() {
     const titulo = document.getElementById("titulo-form-ponto");
     if (titulo) titulo.textContent = "Novo Ponto Coletado";
 
-    const nota = document.getElementById("nota");
-    if (nota) nota.readOnly = false;
-
     const botao = document.getElementById("botao-salvar-ponto");
     if (botao) botao.textContent = "Salvar";
 
@@ -116,6 +113,11 @@ function carregarObras() {
                             <button class="btn-editar"
                                 onclick="editarObra(${Number(obra.id_obra)})">
                                 Editar
+                            </button>
+
+                            <button class="btn-editar"
+                                onclick="abrirResumoObra(${Number(obra.id_obra)})">
+                                Resumo
                             </button>
 
                             <button class="btn-excluir"
@@ -251,6 +253,96 @@ function excluirObra(id) {
     window.location.href =
         "php/excluir_obra.php?id=" +
         encodeURIComponent(id);
+}
+
+function abrirResumoObra(id) {
+    fetch("php/buscar_resumo_obra.php?id=" + encodeURIComponent(id), {
+        cache: "no-store"
+    })
+        .then(res => res.json())
+        .then(dados => {
+            if (dados.erro) {
+                alert(dados.erro);
+                return;
+            }
+
+            const resumo = document.getElementById("resumo-obra");
+            const dadosObra = document.getElementById("dados-resumo-obra");
+            const tabelaAsbuilt = document.getElementById("tabela-resumo-asbuilt");
+            const tabelaPontos = document.getElementById("tabela-resumo-pontos");
+            const tabelaVaos = document.getElementById("tabela-resumo-vaos");
+
+            document.getElementById("titulo-resumo-obra").textContent =
+                "Resumo da Obra - " + (dados.obra.titulo || "");
+
+            dadosObra.innerHTML =
+                "Projeto: " + esc(dados.obra.projeto_obra || "") +
+                " | Nota: " + esc(dados.obra.nota || "");
+
+            tabelaAsbuilt.innerHTML = "";
+
+            if (dados.as_built.length === 0) {
+                tabelaAsbuilt.innerHTML =
+                    '<tr><td colspan="4">Nenhum As Built relacionado a esta obra.</td></tr>';
+            } else {
+                dados.as_built.forEach(item => {
+                    tabelaAsbuilt.innerHTML += `
+                    <tr>
+                        <td>${esc(item.n_as_built)}</td>
+                        <td>${esc(item.responsavel || "")}</td>
+                        <td>${esc(item.status || "")}</td>
+                        <td>${esc(item.data_fiscalizacao || "")}</td>
+                    </tr>`;
+                });
+            }
+
+            tabelaPontos.innerHTML = "";
+
+            if (dados.pontos.length === 0) {
+                tabelaPontos.innerHTML =
+                    '<tr><td colspan="4">Nenhum ponto relacionado a esta obra.</td></tr>';
+            } else {
+                dados.pontos.forEach(item => {
+                    tabelaPontos.innerHTML += `
+                    <tr>
+                        <td>${esc(item.id_ponto)}</td>
+                        <td>${esc(item.nota_obra || "")}</td>
+                        <td>${esc(item.latitude || "")}</td>
+                        <td>${esc(item.longitude || "")}</td>
+                    </tr>`;
+                });
+            }
+
+            tabelaVaos.innerHTML = "";
+
+            if (dados.vaos.length === 0) {
+                tabelaVaos.innerHTML =
+                    '<tr><td colspan="4">Nenhum vão relacionado a esta obra.</td></tr>';
+            } else {
+                dados.vaos.forEach(item => {
+                    tabelaVaos.innerHTML += `
+                    <tr>
+                        <td>${esc(item.fk_pontos_coletados_id_ponto_origem)}</td>
+                        <td>${esc(item.fk_pontos_coletados_id_ponto_destino)}</td>
+                        <td>${esc(item.distancia || "")}</td>
+                        <td>${esc(item.tipo_condutor || "")}</td>
+                    </tr>`;
+                });
+            }
+
+            resumo.style.display = "block";
+            resumo.scrollIntoView({ behavior: "smooth", block: "start" });
+        })
+        .catch(() => {
+            alert("Não foi possível carregar o resumo da obra.");
+        });
+}
+
+function fecharResumoObra() {
+    const resumo = document.getElementById("resumo-obra");
+    if (resumo) {
+        resumo.style.display = "none";
+    }
 }
 
 function carregarAsbuilt() {
@@ -407,35 +499,10 @@ function excluirAsbuilt(id) {
         encodeURIComponent(id);
 }
 
-function carregarFiltroObrasPontos() {
-
-    fetch("php/buscar_obras.php", {
-        cache: "no-store"
-    })
-        .then(res => res.json())
-        .then(obras => {
-            const select = document.getElementById("filtro-obra-pontos");
-            if (!select) return;
-
-            select.innerHTML = '<option value="">Todas as obras</option>';
-
-            obras.forEach(obra => {
-                select.innerHTML += `
-                    <option value="${Number(obra.id_obra)}">
-                        ${esc(obra.projeto_obra)} - ${esc(obra.titulo)}
-                    </option>`;
-            });
-        });
-}
-
-function filtrarPontosPorObra() {
-    carregarPontos();
-}
-
 function verFotosPonto(id) {
     window.open(
         "php/ver_fotos_ponto.php?id=" + encodeURIComponent(id),
-        "_blank"
+        "fotoPonto"
     );
 }
 
@@ -454,18 +521,12 @@ function carregarPontos() {
 
             tabela.innerHTML = "";
 
-            const filtro = document.getElementById("filtro-obra-pontos");
-            const obraSelecionada = filtro ? filtro.value : "";
-
             lista.forEach(ponto => {
-
-                if (obraSelecionada && Number(ponto.fk_obra_id_obra) !== Number(obraSelecionada)) {
-                    return;
-                }
 
                 tabela.innerHTML += `
                 <tr>
-                    <td>${esc(ponto.nota)}</td>
+                    <td>${esc(ponto.id_ponto)}</td>
+                    <td>${esc(ponto.nota_obra)}</td>
                     <td>${esc(ponto.obra)}</td>
                     <td>${esc(ponto.latitude)}</td>
                     <td>${esc(ponto.longitude)}</td>
@@ -476,7 +537,7 @@ function carregarPontos() {
                             Editar
                         </button>
 
-                        <button class="btn-editar"
+                        <button type="button" class="btn-editar"
                             onclick="verFotosPonto(${Number(ponto.id_ponto)})">
                             Ver Foto
                         </button>
@@ -510,9 +571,6 @@ function editarPonto(id) {
             }
 
             document.getElementById("id_ponto").value = ponto.id_ponto;
-
-            document.getElementById("nota").value = ponto.nota;
-            document.getElementById("nota").readOnly = true;
 
             document.getElementById("obra-ponto").value =
                 ponto.fk_obra_id_obra;
@@ -792,7 +850,7 @@ function carregarPontosParaVao() {
             lista.forEach(ponto => {
 
                 const texto =
-                    `Ponto ${ponto.id_ponto} — Nota ${ponto.nota} — ${ponto.obra}`;
+                    `Ponto ${ponto.id_ponto} — Nota ${ponto.nota_obra} — ${ponto.obra}`;
 
                 const op1 =
                     document.createElement("option");

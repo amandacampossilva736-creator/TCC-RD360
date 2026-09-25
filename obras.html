@@ -45,6 +45,54 @@
 </table>
 
 
+<section id="resumo-obra" class="bloco" style="display:none;">
+    <div class="topo">
+        <h2 id="titulo-resumo-obra">Resumo da Obra</h2>
+        <button type="button" class="botao-secundario" onclick="fecharResumoObra()">Fechar</button>
+    </div>
+
+    <p id="dados-resumo-obra"></p>
+
+    <h3>As Built relacionados à obra</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>ID As Built</th>
+            <th>Responsável</th>
+            <th>Status</th>
+            <th>Data Fiscalização</th>
+        </tr>
+        </thead>
+        <tbody id="tabela-resumo-asbuilt"></tbody>
+    </table>
+
+    <h3 style="margin-top:25px;">Pontos relacionados à obra</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>ID Ponto</th>
+            <th>Nota da Obra</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+        </tr>
+        </thead>
+        <tbody id="tabela-resumo-pontos"></tbody>
+    </table>
+
+    <h3 style="margin-top:25px;">Vãos relacionados à obra</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Ponto de Origem</th>
+            <th>Ponto de Destino</th>
+            <th>Distância</th>
+            <th>Condutor</th>
+        </tr>
+        </thead>
+        <tbody id="tabela-resumo-vaos"></tbody>
+    </table>
+</section>
+
 <form id="form-obra" action="php/salvar_obra.php" method="POST">
     <input type="hidden" id="id_obra" name="id_obra">
 

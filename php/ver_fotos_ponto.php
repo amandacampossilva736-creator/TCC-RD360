@@ -24,8 +24,18 @@ img { max-width: 90%; max-height: 80vh; margin: 10px; border-radius: 8px; }
 </head>
 <body>
 <h2>Foto do Ponto</h2>
-<?php while ($foto = mysqli_fetch_assoc($resultado)) { ?>
-    <img src="../<?php echo htmlspecialchars($foto['caminho_imagem']); ?>" alt="Foto do ponto">
-<?php } ?>
+<?php while ($foto = mysqli_fetch_assoc($resultado)) {
+    $caminho = ltrim(str_replace('\\', '/', $foto['caminho_imagem']), '/');
+    $arquivo = __DIR__ . '/../' . $caminho;
+    if (is_file($arquivo)) {
+?>
+    <img src="../<?php echo htmlspecialchars($caminho); ?>" alt="Foto do ponto">
+<?php
+    } else {
+?>
+    <p>Foto cadastrada, mas o arquivo não foi encontrado na pasta do projeto.</p>
+<?php
+    }
+} ?>
 </body>
 </html>

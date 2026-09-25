@@ -9,7 +9,7 @@ $sql = "SELECT v.id_vao, v.distancia, v.tipo_condutor,
                pd.nota AS nota_destino, pd.obra AS obra_destino
         FROM vao v
         INNER JOIN (
-            SELECT pc.id_ponto, pc.nota, o.titulo AS obra
+            SELECT pc.id_ponto, pc.nota_obra AS nota, o.titulo AS obra
             FROM pontos_coletados pc
             INNER JOIN poste_geolocalizacao pg
               ON pc.fk_poste_geolocalizacao_nota = pg.nota
@@ -17,7 +17,7 @@ $sql = "SELECT v.id_vao, v.distancia, v.tipo_condutor,
             INNER JOIN obra o ON pg.fk_obra_id_obra = o.id_obra
         ) po ON po.id_ponto = v.fk_pontos_coletados_id_ponto_origem
         INNER JOIN (
-            SELECT pc.id_ponto, pc.nota, o.titulo AS obra
+            SELECT pc.id_ponto, pc.nota_obra AS nota, o.titulo AS obra
             FROM pontos_coletados pc
             INNER JOIN poste_geolocalizacao pg
               ON pc.fk_poste_geolocalizacao_nota = pg.nota

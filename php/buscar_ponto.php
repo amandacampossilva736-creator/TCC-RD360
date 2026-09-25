@@ -4,7 +4,7 @@ header('Content-Type: application/json; charset=UTF-8');
 
 $id = (int)($_GET['id'] ?? 0);
 
-$sql = "SELECT pc.id_ponto, pc.nota, pc.nota_obra, pc.latitude,
+$sql = "SELECT pc.id_ponto, pc.nota_obra, pc.latitude,
                pc.longitude, pc.fk_as_built_n_as_built,
                pg.id_geolocalizacao, pg.fk_obra_id_obra,
                pg.tipo_poste, pg.material_poste, pg.altura_poste,

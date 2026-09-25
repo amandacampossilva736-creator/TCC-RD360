@@ -12,7 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $idPonto = (int)($_POST['id_ponto'] ?? 0);
-$nota = trim($_POST['nota'] ?? '');
 $obra = (int)($_POST['fk_obra_id_obra'] ?? 0);
 $asBuilt = (int)($_POST['fk_as_built_n_as_built'] ?? 0);
 $latitude = trim($_POST['latitude'] ?? '');
@@ -28,11 +27,10 @@ $cia = trim($_POST['cia'] ?? '');
 $estruturaPrimaria = trim($_POST['estrutura_primaria'] ?? '');
 $estruturaSecundaria = trim($_POST['estrutura_secundaria'] ?? '');
 
-if ($nota === '' || $obra <= 0 || $latitude === '' || $longitude === '' || $tipoPoste === '' || $materialPoste === '') {
+if ($obra <= 0 || $latitude === '' || $longitude === '' || $tipoPoste === '' || $materialPoste === '') {
     die('Preencha os campos obrigatórios. <script>history.back();</script>');
 }
 
-$notaBanco = $conn->real_escape_string($nota);
 $latitudeBanco = (float)$latitude;
 $longitudeBanco = (float)$longitude;
 
@@ -45,6 +43,7 @@ if (!$obraDados) {
 }
 
 $notaObra = $conn->real_escape_string($obraDados['nota'] ?? '');
+$notaBanco = $notaObra;
 
 if ($asBuilt > 0) {
     $resultado = mysqli_query($conn, "SELECT n_as_built FROM as_built WHERE n_as_built=$asBuilt AND fk_obra_id_obra=$obra LIMIT 1");
@@ -75,9 +74,9 @@ if ($idPonto <= 0) {
 
     $asBuiltBanco = $asBuilt > 0 ? $asBuilt : 'NULL';
     $sql = "INSERT INTO pontos_coletados
-            (nota,nota_obra,latitude,longitude,fk_as_built_n_as_built,
+            (nota_obra,latitude,longitude,fk_as_built_n_as_built,
              fk_poste_geolocalizacao_nota,fk_poste_geolocalizacao_id_geolocalizacao)
-            VALUES('$notaBanco','$notaObra',$latitudeBanco,$longitudeBanco,$asBuiltBanco,'$notaBanco',$idGeo)";
+            VALUES('$notaObra',$latitudeBanco,$longitudeBanco,$asBuiltBanco,'$notaBanco',$idGeo)";
 
     if (!mysqli_query($conn, $sql)) {
         die('Erro ao salvar o ponto: ' . $conn->error . ' <script>history.back();</script>');
