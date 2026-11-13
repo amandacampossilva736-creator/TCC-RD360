@@ -761,57 +761,56 @@ function carregarVaos() {
             const tabela =
                 document.getElementById("tabela-vaos");
 
-            if (tabela) {
+            if (!tabela) return;
 
-                tabela.innerHTML = "";
+            tabela.innerHTML = "";
 
-                lista.forEach(v => {
+            lista.forEach(v => {
 
-                    tabela.innerHTML += `
-                    <tr>
-                        <td>
-                            ${esc(v.nota_origem)}
-                            —
-                            ${esc(v.obra_origem)}
-                        </td>
+                tabela.innerHTML += `
+                <tr>
+                    <td>
+                        ${esc(v.nota_origem)}
+                        —
+                        ${esc(v.obra_origem)}
+                    </td>
 
-                        <td>
-                            ${esc(v.nota_destino)}
-                            —
-                            ${esc(v.obra_destino)}
-                        </td>
+                    <td>
+                        ${esc(v.nota_destino)}
+                        —
+                        ${esc(v.obra_destino)}
+                    </td>
 
-                        <td>
-                            ${esc(v.distancia)}
-                        </td>
+                    <td>
+                        ${esc(v.distancia)}
+                    </td>
 
-                        <td>
-                            ${esc(v.tipo_condutor)}
-                        </td>
+                    <td>
+                        ${esc(v.tipo_condutor)}
+                    </td>
 
-                        <td>
+                    <td>
+    <div class="acoes-vaos">
+        <button type="button" class="btn-editar"
+            onclick="editarVao(${Number(v.id_vao)})">
+            Editar
+        </button>
 
-                            <button class="btn-editar"
-                                onclick="editarVao(${Number(v.id_vao)})">
-                                Editar
-                            </button>
-
-                            <button class="btn-excluir"
-                                onclick="excluirVao(${Number(v.id_vao)})">
-                                Excluir
-                            </button>
-
-                        </td>
-                    </tr>`;
-                });
-            }
+        <button type="button" class="btn-excluir"
+            onclick="excluirVao(${Number(v.id_vao)})">
+            Excluir
+        </button>
+    </div>
+</td>
+                </tr>`;
+            });
 
             carregarPontosParaVao();
 
         })
-        .catch(() =>
-            console.error("Não foi possível carregar os vãos.")
-        );
+        .catch(() => {
+            console.error("Não foi possível carregar os vãos.");
+        });
 }
 
 function carregarPontosParaVao() {

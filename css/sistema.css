@@ -7,15 +7,12 @@
 
 }
 
-
 body{
 
     background:#f4f6f9;
     color:#333;
 
 }
-
-
 
 .menu{
 
@@ -32,15 +29,11 @@ body{
 
 }
 
-
-
 .menu.fechado{
 
     width:70px;
 
 }
-
-
 
 .botao-menu{
 
@@ -60,8 +53,6 @@ body{
 
 }
 
-
-
 .logo{
 
     color:white;
@@ -74,8 +65,6 @@ body{
 
 }
 
-
-
 .menu ul{
 
     list-style:none;
@@ -84,15 +73,11 @@ body{
 
 }
 
-
-
 .menu li{
 
     padding:5px 15px;
 
 }
-
-
 
 .menu a{
 
@@ -108,15 +93,11 @@ body{
 
 }
 
-
-
 .menu a:hover{
 
     background:#0b5ed7;
 
 }
-
-
 
 .menu.fechado .logo{
 
@@ -124,22 +105,13 @@ body{
 
 }
 
-
-
-
 .menu.fechado a{
 
     font-size:0;
 
 }
 
-
-
-
-
-
 .conteudo{
-
 
     margin-left:230px;
 
@@ -147,10 +119,7 @@ body{
 
     transition:0.3s;
 
-
 }
-
-
 
 .conteudo.expandido{
 
@@ -158,13 +127,7 @@ body{
 
 }
 
-
-
-
-
-
 .topo{
-
 
     display:flex;
 
@@ -174,10 +137,7 @@ body{
 
     margin-bottom:30px;
 
-
 }
-
-
 
 .topo h1{
 
@@ -187,27 +147,15 @@ body{
 
 }
 
-
-
 .acoes-topo{
-
 
     display:flex;
 
     gap:15px;
 
-
 }
 
-
-
-
-
-
-
-
 .botao{
-
 
     background:#0b5ed7;
 
@@ -225,21 +173,13 @@ body{
 
 }
 
-
-
 .botao:hover{
 
     background:#084298;
 
 }
 
-
-
-
-
-
 .botao-secundario{
-
 
     background:white;
 
@@ -253,10 +193,7 @@ body{
 
     cursor:pointer;
 
-
 }
-
-
 
 .botao-secundario:hover{
 
@@ -276,7 +213,6 @@ cursor:pointer;
 
 }
 
-
 .btn-excluir{
 
 background:#dc3545;
@@ -288,13 +224,7 @@ cursor:pointer;
 
 }
 
-
-
-
-
-
 table{
-
 
     width:100%;
 
@@ -308,64 +238,39 @@ table{
 
     margin-top:25px;
 
-
 }
 
-
-
 thead{
-
 
     background:#082c63;
 
     color:white;
 
-
 }
 
-
-
 th{
-
 
     padding:15px;
 
     text-align:left;
 
-
 }
 
-
-
 td{
-
 
     padding:15px;
 
     border-bottom:1px solid #ddd;
 
-
 }
-
-
 
 tbody tr:hover{
 
-
     background:#f2f5fa;
-
 
 }
 
-
-
-
-
-
-
-
 .botao-tabela{
-
 
     border:none;
 
@@ -379,10 +284,7 @@ tbody tr:hover{
 
     margin-right:5px;
 
-
 }
-
-
 
 .editar{
 
@@ -390,15 +292,11 @@ tbody tr:hover{
 
 }
 
-
-
 .excluir{
 
     background:#dc3545;
 
 }
-
-
 
 .abrir{
 
@@ -406,16 +304,7 @@ tbody tr:hover{
 
 }
 
-
-
-
-
-
-
-
-
 .formulario{
-
 
     display:none;
 
@@ -427,38 +316,23 @@ tbody tr:hover{
 
     margin-top:30px;
 
-
 }
 
-
-
 .formulario h2{
-
 
     color:#082c63;
 
     margin-bottom:25px;
 
-
 }
-
-
-
-
-
 
 .grupo{
 
-
     margin-bottom:20px;
-
 
 }
 
-
-
 .grupo label{
-
 
     display:block;
 
@@ -466,16 +340,11 @@ tbody tr:hover{
 
     margin-bottom:8px;
 
-
 }
-
-
-
 
 input,
 select,
 textarea{
-
 
     width:100%;
 
@@ -487,10 +356,7 @@ textarea{
 
     font-size:15px;
 
-
 }
-
-
 
 textarea{
 
@@ -500,15 +366,7 @@ textarea{
 
 }
 
-
-
-
-
-
-
-
 .bloco{
-
 
     background:white;
 
@@ -520,28 +378,17 @@ textarea{
 
     margin-top:25px;
 
-
 }
 
-
-
 .bloco h3{
-
 
     color:#082c63;
 
     margin-bottom:20px;
 
-
 }
 
-
-
-
-
-
 .acoes{
-
 
     display:flex;
 
@@ -549,24 +396,13 @@ textarea{
 
     margin-top:30px;
 
-
 }
-
-
 
 .acoes button{
 
-
     width:auto;
 
-
 }
-
-
-
-
-
-
 
 .perfil{
     max-width:700px;
@@ -574,4 +410,15 @@ textarea{
 
 .formulario.perfil{
     display:block;
+}
+
+.acoes-vaos {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.acoes-vaos button {
+    width: auto;
+    margin: 0;
 }

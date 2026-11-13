@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pontos Coletados | RD360°</title>
+<link rel="stylesheet" href="css/sistema.css">
+</head>
+<body>
+<aside class="menu">
+    <button class="botao-menu" onclick="abrirMenu()">☰</button>
+    <div class="logo">RD360°</div>
+    <ul>
+        <li><a href="obras.html">Obras</a></li>
+        <li><a href="asbuilt.html">As Built</a></li>
+        <li><a href="pontos.html">Pontos Coletados</a></li>
+        <li><a href="perfil.html">Perfil</a></li>
+        <li><a href="php/logout.php">Sair</a></li>
+    </ul>
+</aside>
+
+<main class="conteudo">
+
+<div class="topo">
+    <h1>Pontos Coletados</h1>
+    <div class="acoes-topo">
+        <button class="botao" onclick="mostrarFormulario('formularioPonto')">Novo Ponto</button>
+        <button class="botao-secundario" onclick="exportarExcel('pontos')">Exportar Excel</button>
+    </div>
+</div>
+
+<table>
+<thead>
+<tr>
+    <th>ID Ponto</th>
+    <th>Nota da Obra</th>
+    <th>Obra</th>
+    <th>Latitude</th>
+    <th>Longitude</th>
+    <th>Ações</th>
+</tr>
+</thead>
+<tbody id="tabela-pontos"></tbody>
+</table>
+
+<form id="form-ponto" action="php/salvar_ponto.php" method="POST" enctype="multipart/form-data">
+    <input type="hidden" id="id_ponto" name="id_ponto">
+
+    <section class="formulario" id="formularioPonto" style="display:none;">
+        <h2 id="titulo-form-ponto">Novo Ponto Coletado</h2>
+
+        <div class="bloco">
+            <h3>Informações do Ponto</h3>
+
+            <div class="grupo">
+                <label for="obra-ponto">Obra</label>
+                <select name="fk_obra_id_obra" id="obra-ponto" onchange="carregarDadosObraPonto(this.value)" required>
+                    <option value="">Selecione...</option>
+                </select>
+            </div>
+
+            <div class="grupo">
+                <label for="nota-obra">Nota da Obra</label>
+                <input type="text" id="nota-obra" name="nota_obra" readonly placeholder="Preenchida automaticamente pela obra">
+            </div>
+
+            <div class="grupo">
+                <label for="asbuilt-ponto">As Built</label>
+                <select name="fk_as_built_n_as_built" id="asbuilt-ponto">
+                    <option value="">Nenhum</option>
+                </select>
+            </div>
+
+            <h3>Ponto Geográfico</h3>
+
+            <div class="grupo">
+                <label for="latitude">Latitude</label>
+                <input type="number" step="0.00000001" id="latitude" name="latitude" placeholder="Ex.: -11.52715334" required>
+            </div>
+
+            <div class="grupo">
+                <label for="longitude">Longitude</label>
+                <input type="number" step="0.00000001" id="longitude" name="longitude" placeholder="Ex.: -40.32161607" required>
+            </div>
+
+            <button type="button" class="botao" onclick="obterLocalizacao()">
+                Obter Localização
+            </button>
+        </div>
+
+        <div class="bloco">
+            <h3>Poste</h3>
+
+            <div class="grupo">
+                <label for="tipo_poste">Tipo do Poste</label>
+                <select id="tipo_poste" name="tipo_poste" required>
+                    <option value="">Selecione...</option>
+                    <option value="Duplo T">Duplo T</option>
+                    <option value="Circular">Circular</option>
+                </select>
+            </div>
+
+            <div class="grupo">
+                <label for="altura_poste">Altura do Poste</label>
+                <input type="text" id="altura_poste" name="altura_poste">
+            </div>
+
+            <div class="grupo">
+                <label for="esforco_poste">Esforço do Poste</label>
+                <input type="text" id="esforco_poste" name="esforco_poste">
+            </div>
+
+            <div class="grupo">
+                <label for="material_poste">Material do Poste</label>
+                <select id="material_poste" name="material_poste" required>
+                    <option value="">Selecione...</option>
+                    <option value="Concreto">Concreto</option>
+                    <option value="Fibra de vidro">Fibra de vidro</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="bloco">
+            <h3>Equipamento</h3>
+
+            <div class="grupo">
+                <label for="tipo_equipamento">Tipo de Equipamento</label>
+                <select id="tipo_equipamento" name="tipo_equipamento">
+                    <option value="">Nenhum</option>
+                    <option value="Transformador">Transformador</option>
+                    <option value="Religador">Religador</option>
+                    <option value="Regulador">Regulador</option>
+                    <option value="Banco de Capacitor">Banco de Capacitor</option>
+                </select>
+            </div>
+
+            <div class="grupo">
+                <label for="potencia">Potência</label>
+                <input type="text" id="potencia" name="potencia" placeholder="Digite ou selecione">
+            </div>
+
+            <div class="grupo">
+                <label for="placa">Placa</label>
+                <input type="text" id="placa" name="placa">
+            </div>
+
+            <div class="grupo">
+                <label for="cia">CIA</label>
+                <input type="text" id="cia" name="cia">
+            </div>
+        </div>
+
+        <div class="bloco">
+            <h3>Estrutura Primária</h3>
+            <div class="grupo">
+                <label for="estrutura_primaria">Tipo da Estrutura</label>
+                <select id="estrutura_primaria" name="estrutura_primaria">
+                    <option value="">Nenhuma</option>
+                    <option value="U1">U1</option>
+                    <option value="U2">U2</option>
+                    <option value="U3">U3</option>
+                    <option value="U3-3">U3-3</option>
+                    <option value="U4">U4</option>
+                    <option value="N1">N1</option>
+                    <option value="N3">N3</option>
+                    <option value="N4">N4</option>
+                    <option value="N3-N3">N3-N3</option>
+                    <option value="N4-N3">N4-N3</option>
+                    <option value="TE">TE</option>
+                    <option value="B1">B1</option>
+                    <option value="B3">B3</option>
+                    <option value="B4">B4</option>
+                    <option value="CE1">CE1</option>
+                    <option value="CE1-A">CE1-A</option>
+                    <option value="CE2">CE2</option>
+                    <option value="CE3">CE3</option>
+                    <option value="CE4">CE4</option>
+                    <option value="CE3-CE3">CE3-CE3</option>
+                    <option value="CE2-3">CE2-3</option>
+                    <option value="N3.CE3">N3.CE3</option>
+                    <option value="B3.CE3">B3.CE3</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="bloco">
+            <h3>Estrutura Secundária</h3>
+            <div class="grupo">
+                <label for="estrutura_secundaria">Tipo da Estrutura</label>
+                <select id="estrutura_secundaria" name="estrutura_secundaria">
+                    <option value="">Nenhuma</option>
+                    <option value="STBI">STBI</option>
+                    <option value="SMBI">SMBI</option>
+                    <option value="FLABIT">FLABIT</option>
+                    <option value="FLABIM">FLABIM</option>
+                    <option value="FLABIDT">FLABIDT</option>
+                    <option value="FLABIDM">FLABIDM</option>
+                    <option value="FLBIT">FLBIT</option>
+                    <option value="FLBIM">FLBIM</option>
+                    <option value="FLBIT NI">FLBIT NI</option>
+                    <option value="SDBIT">SDBIT</option>
+                    <option value="SDBIM">SDBIM</option>
+                    <option value="SDANI">SDANI</option>
+                    <option value="SPBI">SPBI</option>
+                    <option value="SAB">SAB</option>
+                    <option value="CAB">CAB</option>
+                    <option value="IBI">IBI</option>
+                    <option value="ATREXT">ATREXT</option>
+                    <option value="ATRINT">ATRINT</option>
+                    <option value="LCM">LCM</option>
+                    <option value="IT-R">IT-R</option>
+                    <option value="ITF-R">ITF-R</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="bloco">
+            <h3>Foto do Ponto</h3>
+            <div class="grupo">
+                <label for="fotos-ponto">Foto</label>
+                <input type="file" id="fotos-ponto" name="fotos[]" accept="image/*" multiple>
+            </div>
+        </div>
+<div class="acoes">
+    <button type="submit" class="botao" id="botao-salvar-ponto">Salvar</button>
+    <button type="button" class="botao-secundario" onclick="fecharFormularioPonto()">Cancelar</button>
+</div>
+    </section>
+</form>
+
+<section class="bloco" id="area-vaos">
+    <div class="topo">
+        <h2>Vãos</h2>
+        <div class="acoes-topo">
+            <button type="button" class="botao" onclick="mostrarFormulario('formularioVao')">Novo Vão</button>
+            <button type="button" class="botao-secundario" onclick="exportarExcel('vaos')">Exportar Vãos</button>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Ponto de Origem</th>
+                <th>Ponto de Destino</th>
+                <th>Distância</th>
+                <th>Condutor</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="tabela-vaos"></tbody>
+    </table>
+
+    <form id="form-vao" action="php/salvar_vao.php" method="POST">
+        <input type="hidden" id="id_vao" name="id_vao">
+
+        <section class="formulario" id="formularioVao" style="display:none;">
+            <h2 id="titulo-form-vao">Novo Vão</h2>
+
+            <div class="grupo">
+                <label for="ponto-origem">Ponto de Origem</label>
+                <select id="ponto-origem" name="fk_pontos_coletados_id_ponto_origem" required>
+                    <option value="">Selecione...</option>
+                </select>
+            </div>
+
+            <div class="grupo">
+                <label for="ponto-destino">Ponto de Destino</label>
+                <select id="ponto-destino" name="fk_pontos_coletados_id_ponto_destino" required>
+                    <option value="">Selecione...</option>
+                </select>
+            </div>
+<div class="grupo">
+    <label for="distancia">Distância</label>
+    <input type="text"
+           id="distancia"
+           name="distancia"
+           placeholder="Calculada automaticamente"
+           readonly>
+</div>
+
+            <div class="grupo">
+                <label for="tipo_condutor">Tipo de Condutor</label>
+                <select id="tipo_condutor" name="tipo_condutor" required>
+                    <option value="">Selecione...</option>
+                    <optgroup label="Primários">
+                        <option value="2#4CAA">2#4CAA</option>
+                        <option value="3#4CAA">3#4CAA</option>
+                        <option value="3#1/0CA">3#1/0CA</option>
+                        <option value="3XA35P">3XA35P</option>
+                        <option value="3XA70P">3XA70P</option>
+                        <option value="3XA185P">3XA185P</option>
+                    </optgroup>
+                    <optgroup label="Secundários">
+                        <option value="1x1x25+25">1x1x25+25</option>
+                        <option value="3x1x35+35">3x1x35+35</option>
+                        <option value="3x1x70+50">3x1x70+50</option>
+                        <option value="3x1x120+70">3x1x120+70</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <div class="acoes">
+    <button type="submit" class="botao" id="botao-salvar-vao">Salvar</button>
+    <button type="button" class="botao-secundario" onclick="fecharFormularioVao()">Cancelar</button>
+</div>
+        </section>
+    </form>
+</section>
+
+</main>
+
+<script src="js/script.js"></script>
+<script>
+carregarPontos();
+carregarObras();
+carregarAsbuiltSelect();
+carregarVaos();
+verificarLogin();
+</script>
+</body>
+</html>

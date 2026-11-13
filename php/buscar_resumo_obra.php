@@ -68,7 +68,7 @@ $sqlVaos = "SELECT v.id_vao, v.distancia, v.tipo_condutor,
                 ON pd.fk_poste_geolocalizacao_nota = pgd.nota
                AND pd.fk_poste_geolocalizacao_id_geolocalizacao = pgd.id_geolocalizacao
             WHERE pgo.fk_obra_id_obra=$id
-              AND pgd.fk_obra_id_obra=$id
+                OR pgd.fk_obra_id_obra=$id
             ORDER BY v.id_vao DESC";
 
 $resultadoVaos = mysqli_query($conn, $sqlVaos);
